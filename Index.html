@@ -13,9 +13,9 @@ import {
   onSnapshot 
 } from 'firebase/firestore';
 import { 
-  Menu, X, Briefcase, User, FileText, Settings, LayoutDashboard, 
-  ChevronRight, ExternalLink, Mail, Linkedin, MapPin, Calendar, 
-  Download, Target, Layers, ArrowRight, Zap, CheckCircle2, Shield, Plus, Trash2, Edit3, Save, Eye
+  X, Briefcase, User, FileText, Settings, LayoutDashboard, 
+  Mail, Linkedin, MapPin, 
+  Download, Target, Layers, Zap, CheckCircle, Shield, Plus, Trash, Save, Eye
 } from 'lucide-react';
 
 // ==========================================
@@ -275,13 +275,13 @@ function PublicPortfolio({ data, setViewMode }) {
               <a href="#projects" className="px-8 py-4 bg-primary text-white font-semibold rounded-sm hover:bg-accent hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-gray-200">
                 View Portfolio
               </a>
-              <a href={hero.cvUrl} className="px-8 py-4 bg-white border border-gray-200 text-primary font-semibold rounded-sm hover:border-primary hover:bg-gray-50 transition-all duration-300 flex items-center gap-2">
+              <a href={hero.cvUrl || '#'} onClick={(e) => { if (!hero.cvUrl || hero.cvUrl === '#') e.preventDefault(); }} className="px-8 py-4 bg-white border border-gray-200 text-primary font-semibold rounded-sm hover:border-primary hover:bg-gray-50 transition-all duration-300 flex items-center gap-2">
                 <Download size={18} /> Download CV
               </a>
             </div>
             <div className="flex items-center gap-6 pt-8 text-gray-400">
-              <a href={hero.linkedin} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors"><Linkedin size={24} /></a>
-              <a href={`mailto:${hero.email}`} className="hover:text-primary transition-colors"><Mail size={24} /></a>
+              <a href={hero.linkedin || '#'} onClick={(e) => { if (!hero.linkedin || hero.linkedin === '#') e.preventDefault(); }} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors"><Linkedin size={24} /></a>
+              <a href={`mailto:${hero.email || ''}`} className="hover:text-primary transition-colors"><Mail size={24} /></a>
             </div>
           </div>
           <div className="lg:col-span-5 relative fade-in-up" style={{ animationDelay: '0.2s' }}>
@@ -352,7 +352,7 @@ function PublicPortfolio({ data, setViewMode }) {
                     <ul className="space-y-3">
                       {(exp.achievements || []).map((ach, i) => (
                         <li key={i} className="flex items-start gap-3 text-gray-700">
-                          <CheckCircle2 size={18} className="text-accent shrink-0 mt-0.5" />
+                          <CheckCircle size={18} className="text-accent shrink-0 mt-0.5" />
                           <span className="text-sm leading-relaxed">{ach}</span>
                         </li>
                       ))}
@@ -645,7 +645,7 @@ function AdminDashboard({ data, setViewMode, userId }) {
             {activeTab.replace('-', ' ')} Settings
           </h1>
           <div className="flex items-center gap-4">
-            {saveStatus === 'success' && <span className="text-green-500 text-sm font-medium flex items-center gap-1"><CheckCircle2 size={16}/> Saved</span>}
+            {saveStatus === 'success' && <span className="text-green-500 text-sm font-medium flex items-center gap-1"><CheckCircle size={16}/> Saved</span>}
             {saveStatus === 'error' && <span className="text-red-500 text-sm font-medium">Failed to save</span>}
             <button 
               onClick={handleSave}
@@ -807,7 +807,7 @@ function AdminDashboard({ data, setViewMode, userId }) {
             {activeTab === 'theme' && (
               <div className="space-y-6">
                 <div className="bg-blue-50 text-blue-800 p-4 rounded-sm border border-blue-100 text-sm mb-6 flex gap-3">
-                  <CheckCircle2 size={20} className="shrink-0" />
+                  <CheckCircle size={20} className="shrink-0" />
                   Ubah warna utama website Anda. Pastikan menggunakan format Hex Color (contoh: #101C2C).
                 </div>
                 <div className="grid grid-cols-2 gap-6">
@@ -864,7 +864,7 @@ function ArrayEditor({ items = [], onChange, template, renderItem }) {
               className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-sm transition-colors"
               title="Delete item"
             >
-              <Trash2 size={16} />
+              <Trash size={16} />
             </button>
           </div>
           <div className="mb-4 pr-12 text-sm font-bold text-gray-700 flex items-center gap-2">
